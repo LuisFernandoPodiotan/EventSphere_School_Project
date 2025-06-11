@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="event-form-container">
+        <h2>Create New Event</h2>
+        <form id="eventForm">
+            <input type="text" id="title" placeholder="Event Title" required>
+            <textarea id="description" placeholder="Event Description" required></textarea>
+            <input type="datetime-local" id="startTime" required>
+            <input type="datetime-local" id="endTime" required>
+            <input type="text" id="location" placeholder="Location" required>
+            <input type="text" id="organizerName" placeholder="Organizer Name" required>
+            <input type="number" id="maxParticipants" placeholder="Max Participants" required>
+            <input type="text" id="username" placeholder="Your Username" required>
+            <button type="submit">Create Event</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('eventForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const event = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                startTime: document.getElementById('startTime').value,
+                endTime: document.getElementById('endTime').value,
+                location: document.getElementById('location').value,
+                organizerName: document.getElementById('organizerName').value,
+                maxParticipants: parseInt(document.getElementById('maxParticipants').value),
+            };
+
+            const username = document.getElementById('username').value;
+
+            try {
+                const response = await fetch('/api/events?username=' + encodeURIComponent(username), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(event),
+                });
+
+                if (response.ok) {
+                    alert('Event created successfully!');
+                    document.getElementById('eventForm').reset();
+                } else {
+                    const error = await response.text();
+                    alert('Error creating event: ' + error);
+                }
+            } catch (err) {
+                alert('An unexpected error occurred: ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" th:href="@{/css/Style1.css}" />
+    <title>Login </title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms">
+        <div class="form login" id ="loginForm">
+          <span class="title">Login</span>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+           <!-- Display success message -->
+           <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+         <form action="/Login"  method="post">
+            <div class="input-field">
+              <input type="email" placeholder="Enter your email" name="email" required />
+              <i class="uil uil-envelope icon"></i>
+            </div>
+            <div class="input-field">
+              <input type="password" class="password" placeholder="Enter your password" name="password" required />
+              <i class="uil uil-lock icon"></i>
+              <i class="uil uil-eye-slash showHidePw"></i>
+            </div>
+            <div class="checkbox-text">
+              <div class="checkbox-content">
+                <input type="checkbox" id="logCheck" />
+                <label for="logCheck" class="text">Remember me</label>
+              </div>
+              <a href="/forgot-password" class="text">Forgot password?</a>
+            </div>
+            <div class="button">
+              <button type="submit" class="btn">Login</button>
+            </div>
+          </form>
+          <div class="login-signup">
+            <span class="text"
+              >Not a member?
+              <a href="register" class="text signup-link">Signup Now</a>
+            </span>
+          </div>
+        </div>
+    </div>
+</div>
+<script src="script1.js"></script>
+</body>
+</html>
